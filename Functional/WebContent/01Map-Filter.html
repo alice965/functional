@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="js/_.js"></script> 
+
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+
+<script>
+	var users =[
+		{id: 1, name:'홍길동', age: 36},
+		{id: 2, name:'박길동', age: 32},
+		{id: 3, name:'김길동', age: 26},
+		{id: 4, name:'이길동', age: 27},
+		{id: 5, name:'곽길동', age: 38},
+		{id: 6, name:'성길동', age: 16},
+		{id: 7, name:'주길동', age: 46},
+		{id: 8, name:'막길동', age: 22}
+	]
+	
+	//1-1. 30세 이상인 사람들의 이름을 수집한다.
+	var names = [];
+	for(var i=0; i<users.length; i++){
+		if(users[i].age > 30) 
+			names.push(users[i].name);
+	}
+	console.log(names);
+	
+	//1-2. 30세 이상인 사람들의 나이를 수집한다.
+	var ages = [];
+	for(var i=0; i<users.length; i++){
+		if(users[i].age > 30) 
+			ages.push(users[i].age);
+	}
+	console.log(ages);
+	
+	/*
+	////////////////////2-1. 필터 처리 한다. _filter///////////////////////////////
+	function _filter(users, predi){
+		var new_list=[];
+		for(var i=0; i<users.length; i++){
+			if(predi(users[i])) { 					//users를 하나씩 받고
+				new_list.push(users[i]);			//리스트에 푸쉬
+			}
+		}
+		return new_list;
+	}
+	//2-2. 필터함수를 찍어본다.
+	console.log(	_filter(users, function(user){return user.age>=30; }));	//하나씩 받은 users를 user로 받음.
+	console.log(_filter([1,2,3,4], function(num){return num%2;}));
+	
+	///////////////3-1 맵 처리 한다. _map//////////////////////
+	function _map(list, mapper){
+		var new_list = [];
+		for(var i=0; i<list.length; i++){
+				new_list.push(mapper(list[i]));
+		}
+		return new_list;
+	}
+	*/
+	
+	
+	//3-2. 맵 사용
+	
+	var over_30 = 	_filter(users, function(user){return user.age>=30; }); //필터함수로 데이터를 걸러와서
+	var under_30 = _filter(users, function(user){return user.age<30; });
+	
+		//30이상
+	var names = _map(over_30, function(user){ //리스트를 매퍼에 넣고 이름만 뽑아본다. 
+		return user.name;
+	});
+	console.log(names);
+		//30이하
+	var names = _map(under_30, function(user){ //리스트를 매퍼에 넣고 이름만 뽑아본다.
+		return user.name;
+	});
+	console.log(names);
+	
+	//4. 맵과 필터 동시 사용
+	console.log(
+			_map(
+					_filter(users, function(user){return user.age>=30;}),
+					function(user){return user.name;}	
+			)		
+	);
+	
+	console.log(
+			_map(
+					_filter(users, function(user){return user.age<30;}),
+					function(user){return user.name;}	
+			)		
+	);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+</script>
+</html>
